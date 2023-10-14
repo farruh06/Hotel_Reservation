@@ -20,23 +20,28 @@ public:
         PersonalInfo << name << endl << password;
         PersonalInfo.close();
     }
+private:
 
 };
 
 void Admin(){
+    ofstream myRooms("rooms.txt", ios::binary);
     int rooms[4][4] = {
             {101, 102, 103, 104},
             {201, 202, 203, 204},
             {301, 302, 303, 304},
             {401, 402, 403, 404}
     };
-    ofstream myRooms("")
+
+    myRooms << rooms;
+    myRooms.close();
 }
 
 void User(){
-    cout << "                   Welcome User! \n\n\n";
-    cout << "   We wanted to know you better =)\n";
-    cout << "   Please authorize to our Hotel\n";
+
+    cout << "                   Welcome User!\n\n\n";
+    cout << " We wanted to know you better =)\n\n";
+    cout << " Please authorize to our Hotel\n\n";
     cout << " 1)  Sign In\n";
     cout << " 2)  Sign Up\n";
     int b;
@@ -47,10 +52,17 @@ void User(){
         UserInfo myInfo;
         myInfo.auentification();
         system("cls");
-        cout << "  Information about you will be saved. \n";
+        string line;
+        ifstream PersonalInfo("userinfo.txt", ios::binary);
+            getline(PersonalInfo, line);
+
+        cout << "   It's nice to meet you " << line << "!\n";
+        cout << "  Information about you will be saved. Do not worry.\n";
         cout << "  Now, please select a room.\n";
         int rooms[4][4];
-       Admin();
+
+        ifstream yourRooms("rooms.txt", ios::binary);
+        ofstream myRooms("rooms.txt",ios::binary);
         cout << "  Which floor do you want your room be on? \n";
         cout << " Please type 0 for 1st floor, 1 for 2nd floor...:  ";
         int floor;
@@ -65,12 +77,6 @@ void User(){
         };
 
 }
-
-
-
-
-
-
 
 int main() {
     cout << "                Welcome to our Hotel!\n";
