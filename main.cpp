@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstdio>
 
 
 using namespace std;
@@ -25,14 +26,6 @@ private:
 };
 
 void Admin(){
-    fstream myRooms;
-        myRooms.open("D:/Programming/c++/Hotel_Reservation//admin.txt", fstream::in | fstream :: out);
-    if (!myRooms){
-        cerr << "Something went wrong" << endl;
-        exit(1);
-
-
-    }
 
     int rooms[4][4] = {
             {101, 102, 103, 104},
@@ -40,15 +33,11 @@ void Admin(){
             {301, 302, 303, 304},
             {401, 402, 403, 404}
     };
-    int i = 0;
-    while (i < 4){
-        for (int j = 0; j < 4; j++ ){
-            myRooms << rooms[i][j] << " ";
-        }
-
-        i++;
-    }
-    myRooms.close();
+    int array_size = sizeof(rooms)/sizeof(rooms[0]);
+    FILE *myRooms;
+    myRooms = fopen( "array.bin", "wb");
+    fwrite(rooms , sizeof(rooms[0]) , array_size, myRooms );
+    fclose(myRooms);
 }
 
 void User(){
