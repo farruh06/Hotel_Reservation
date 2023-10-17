@@ -4,6 +4,8 @@
 #include <cstdio>
 
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wempty-body"
 using namespace std;
 
 class UserInfo {
@@ -75,8 +77,40 @@ void User(){
         if (rooms[floor][room]){
             rooms[floor][room] = 0;
         }
-        };
+        }
+    else if(b == 1){
+        cout << " Please enter your name : ";
+        string name;
+        cin >> name;
+        cout << " Please enter your password : ";
+        int password;
+        cin >> password;
+        ifstream PersonalInfo("userinfo.txt", ios :: in);
+        string strData;
+        PersonalInfo.seekg(1);
+        getline(PersonalInfo, strData);
+        if (name == strData){
+            cout << " One step left! Keep going!\n";
+        }
+        else {
+            cout << " Sorry, wrong name. Try again\n";
+        }
+        string strPass;
+        PersonalInfo.seekg(2);
+        getline(PersonalInfo, strPass);
+        int num;
+        num = stoi(strPass);
+        if (password == num){
+            cout << " Successfully entered to the account!\n ";
+            cout << " Welcome back!\n";
+        }
+        else {
+            cout << " Sorry, wrong password. Try again\n";
 
+        }
+
+
+    }
 }
 
 int main() {
@@ -95,3 +129,5 @@ int main() {
     }
     return 0;
 }
+
+#pragma clang diagnostic pop
