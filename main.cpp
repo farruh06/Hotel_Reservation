@@ -7,36 +7,75 @@
 using namespace std;
 class User{
 private:
-    void admin() {
+    string line;
+    string name;
+    string file_extension = ".txt";
+    string password;
 
 
-    }
+
 public:
     void userInfo() {
         cout << " Enter your name :  ";
-        string name;
         cin >> name;
         cout << " Enter your password :  ";
-        int password;
         cin >> password;
-        ofstream save("userinfo.txt", ios :: in);
-        save << name << endl << password << endl;
+        ofstream save(name + file_extension, ios :: in | ios :: trunc);
+        save << password << endl;
         save.close();
+
+    }
+    void clientInfo(){
+        Name:
+        cout << " Enter your name :  ";
+        cin >> name;
+        Password:
+        cout << " Enter your password :  ";
+        cin >> password;
+       try {
+            ifstream collect(name + file_extension, ios :: out );
+                getline(collect, line);
+                if (!collect){
+                    cerr << "  Your name is not found. \n";
+                    goto Name;
+                }
+
+
+                else if (line == password ){
+                    cout << " Welcome back " << name << "!\n";
+                }
+                else {
+                    cout << " Incorrect password. Try again\n";
+                }
+                while (line != password){
+                    goto Password;
+                }
+            collect.close();
+      }
+        catch(...){
+
+            cout << "Error! File not found\n";
+        }
     }
 };
 int main(){
+    int a;
+    User myobj;
+
     cout << "            Please log in to continue \n\n\n";
     cout << " 1) Sign Up\n";
     cout << " 2) Sign In\n";
-    int a;
+
     cout << " -   ";
     cin >> a;
+
     if (a == 1){
-        User myobj;
+
         myobj.userInfo();
+
     }
     else if (a == 2){
-
+        myobj.clientInfo();
     }
     return 0;
 }
